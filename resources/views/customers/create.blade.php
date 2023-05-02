@@ -1,60 +1,81 @@
-@section("body")
-    <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-        <div class="flex flex-1 justify-between sm:hidden">
-            <a href="#"
-               class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
-            <a href="#"
-               class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
-        </div>
-        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-            <div>
-                <p class="text-sm text-gray-700">
-                    Showing
-                    <span class="font-medium">1</span>
-                    to
-                    <span class="font-medium">10</span>
-                    of
-                    <span class="font-medium">97</span>
-                    results
-                </p>
-            </div>
-            <div>
-                <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                    <a href="#"
-                       class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                        <span class="sr-only">Previous</span>
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                  d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </a>
-                    <!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" -->
-                    <a href="#" aria-current="page"
-                       class="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">1</a>
-                    <a href="#"
-                       class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">2</a>
-                    <a href="#"
-                       class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">3</a>
-                    <span
-                        class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
-                    <a href="#"
-                       class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">8</a>
-                    <a href="#"
-                       class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">9</a>
-                    <a href="#"
-                       class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">10</a>
-                    <a href="#"
-                       class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                        <span class="sr-only">Next</span>
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </a>
-                </nav>
-            </div>
+@extends('customers.layout.layout')
+
+@section('body')
+
+    <div class="w-full justify-center flex flex-col items-center bg-gray-900 h-screen">
+
+        <div class="w-2/4 items-center p-5 text-white bg-gray-800 rounded-md overflow-x-auto overflow-y-auto h-[32rem]">
+            <form method="POST" action="{{ route('store_customer')  }}">
+                @csrf
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
+                    Save new customer
+                </button>
+                <div class="w-full flex flex-row">
+                    <div class="mb-4 w-2/4 p-2">
+                        <label class="block text-gray-100 text-sm font-bold mb-2" for="username">
+                            Firstname
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
+                            id="Firstname" type="text" placeholder="Firstname" name="Firstname"
+                            value="{{old("Firstname")}}">
+                    </div>
+                    <div class="mb-4 w-2/4 p-2">
+                        <label class="block text-gray-100 text-sm font-bold mb-2" for="Lastname">
+                            Lastname
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
+                            id="Lastname" type="text" placeholder="Lastname" name="Lastname"
+                            value="{{old("Lastname")}}">
+                    </div>
+                </div>
+                <div class="w-full flex flex-row">
+                    <div class="mb-4 w-2/4 p-2">
+                        <label class="block text-gray-100 text-sm font-bold mb-2" for="PhoneNumber">
+                            PhoneNumber
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
+                            id="PhoneNumber" type="text" placeholder="PhoneNumber" name="PhoneNumber"
+                            value="{{old("PhoneNumber")}}">
+                    </div>
+                    <div class="mb-4 w-2/4 p-2">
+                        <label class="block text-gray-100 text-sm font-bold mb-2" for="Email">
+                            Email
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
+                            id="Email" type="text" placeholder="Email" name="Email" value="{{old("Email")}}">
+                    </div>
+                </div>
+                <div class="w-full flex flex-row">
+                    <div class="mb-4 w-2/4 p-2">
+                        <label class="block text-gray-100 text-sm font-bold mb-2" for="BankAccountNumber">
+                            Bank account number
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
+                            id="BankAccountNumber" type="text" placeholder="BankAccountNumber" name="BankAccountNumber"
+                            value="{{old("BankAccountNumber")}}">
+                    </div>
+                    <div class="mb-4 w-2/4 p-2">
+                        <label class="block text-gray-100 text-sm font-bold mb-2" for="DateOfBirth">
+                            Date of birth
+                        </label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
+                            id="DateOfBirth" type="datetime-local" placeholder="Date of birth" name="DateOfBirth"
+                            value="{{old("DateOfBirth")}}">
+                    </div>
+                </div>
+            </form>
+
+            @if($errors->any())
+                @foreach($errors->all() as $error )
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endif
         </div>
     </div>
 

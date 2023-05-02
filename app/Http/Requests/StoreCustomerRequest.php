@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidBankAccountNumber;
+use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCustomerRequest extends FormRequest
@@ -22,7 +24,12 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'PhoneNumber' => ['required', new ValidPhoneNumber],
+            'Email' => ['required', 'email:rfc,dns', 'unique:customers'],
+            "BankAccountNumber" => ['required', new ValidBankAccountNumber],
+            "Firstname" => ["required", 'unique:customers'],
+            "Lastname" => ["required", 'unique:customers'],
+            "DateOfBirth" => ["required"],
         ];
     }
 }

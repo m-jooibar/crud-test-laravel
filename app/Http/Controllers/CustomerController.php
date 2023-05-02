@@ -45,7 +45,7 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         $this->customerService->storeNewCustomer(collect($request->all()));
-        return back();
+        return to_route('index_customer')->with('customer_added', 'customer added successfully');
     }
 
     /**
@@ -74,7 +74,7 @@ class CustomerController extends Controller
     public function update(UpdateCustomerRequest $request, Customer $customer): \Illuminate\Http\RedirectResponse
     {
         $this->customerService->updateOneCustomer(collection: collect($request->all()), customer: $customer);
-        return back();
+        return to_route('index_customer')->with('customer_added', 'customer updated successfully');
     }
 
     /**
@@ -83,6 +83,11 @@ class CustomerController extends Controller
     public function destroy(Customer $customer): \Illuminate\Http\RedirectResponse
     {
         $this->customerService->deleteOneCustomer($customer);
-        return back();
+        return to_route('index_customer')->with('customer_removed', 'customer deleted successfully');
+    }
+
+    public function delete(Customer $customer)
+    {
+        return view('customers.delete', ['customer' => $customer]);
     }
 }
