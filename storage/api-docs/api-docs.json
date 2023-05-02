@@ -1,0 +1,143 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "crud-test-laravel",
+        "description": "Swagger documention for crud-test-laravel",
+        "contact": {
+            "email": "masood.jooibar@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "Get all customers",
+                "description": "Get all customers list",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/api/customers/store": {
+            "post": {
+                "tags": [
+                    "customers",
+                    "store"
+                ],
+                "summary": "Add new customer to database",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "PhoneNumber",
+                        "in": "path",
+                        "description": "phone number",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/customers/show/{customer}": {
+            "get": {
+                "tags": [
+                    "customers",
+                    "show"
+                ],
+                "summary": "Get single customer",
+                "description": "Get single customer",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "description": "ID of customer to return",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/api/customers/update/{customer}": {
+            "post": {
+                "tags": [
+                    "customers",
+                    "update"
+                ],
+                "summary": "update existing customer to database",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "description": "customer id",
+                        "required": true
+                    },
+                    {
+                        "name": "Firstame",
+                        "in": "path",
+                        "description": "first name",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/customers/delete/{customer}": {
+            "delete": {
+                "tags": [
+                    "customer",
+                    "delete"
+                ],
+                "summary": "Deletes a customer",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "description": "customer to delete",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "customer not found"
+                    }
+                }
+            }
+        }
+    }
+}

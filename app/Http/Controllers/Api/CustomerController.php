@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Domain\Customer\Services\CustomerService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use JetBrains\PhpStorm\Pure;
 
 class CustomerController extends Controller
@@ -35,8 +32,23 @@ class CustomerController extends Controller
         return $response;
     }
 
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/customers",
+     *     tags={"customers"},
+     *     summary="Get all customers",
+     *     description="Get all customers list",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     * )
      */
     public function index()
     {
@@ -48,10 +60,32 @@ class CustomerController extends Controller
         }
     }
 
+//PhoneNumber
+//Email
+//BankAccountNumber
+//Firstname
+//Lastname
+//DateOfBirth
+
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/customers/store",
+     *     tags={"customers","store"},
+     *     summary="Add new customer to database",
+     *     operationId="store",
+     *     @OA\Parameter(
+     *         name="PhoneNumber",
+     *         in="path",
+     *         description="phone number",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input"
+     *     ),
+     * )
      */
-    public function store(StoreCustomerRequest $request)
+    public function store(\App\Http\Requests\Api\StoreCustomerRequest $request)
     {
         try {
             $this->customerService->storeNewCustomer(collect($request->all()));
@@ -61,8 +95,33 @@ class CustomerController extends Controller
         }
     }
 
+
     /**
-     * Show created customer in storage.
+     * @OA\Get(
+     *     path="/api/customers/show/{customer}",
+     *     tags={"customers","show"},
+     *     summary="Get single customer",
+     *     description="Get single customer",
+     *     operationId="show",
+     *       @OA\Parameter(
+     *         name="customer",
+     *         in="path",
+     *         description="ID of customer to return",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found"
+     *     )
+     * )
      */
     public function show(Customer $customer)
     {
@@ -74,9 +133,31 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Post(
+     *     path="/api/customers/update/{customer}",
+     *     tags={"customers","update"},
+     *     summary="update existing customer to database",
+     *     operationId="update",
+     *     @OA\Parameter(
+     *         name="customer",
+     *         in="path",
+     *         description="customer id",
+     *         required=true,
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="Firstame",
+     *         in="path",
+     *         description="first name",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input"
+     *     ),
+     * )
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(\App\Http\Requests\Api\UpdateCustomerRequest $request, Customer $customer)
     {
         try {
             $this->customerService->updateOneCustomer(collection: collect($request->all()), customer: $customer);
@@ -86,8 +167,28 @@ class CustomerController extends Controller
         }
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/customers/delete/{customer}",
+     *     tags={"customer","delete"},
+     *     summary="Deletes a customer",
+     *     operationId="destroy",
+     *     @OA\Parameter(
+     *         name="customer",
+     *         in="path",
+     *         description="customer to delete",
+     *         required=true
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid ID supplied",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="customer not found",
+     *     ),
+     * )
      */
     public function destroy(Customer $customer)
     {
