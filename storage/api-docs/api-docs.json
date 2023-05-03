@@ -34,19 +34,20 @@
         "/api/customers/store": {
             "post": {
                 "tags": [
-                    "customers",
-                    "store"
+                    "customers"
                 ],
-                "summary": "Add new customer to database",
+                "summary": "Add new customer in database",
                 "operationId": "store",
-                "parameters": [
-                    {
-                        "name": "PhoneNumber",
-                        "in": "path",
-                        "description": "phone number",
-                        "required": true
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CustomerStoreRequest"
+                            }
+                        }
                     }
-                ],
+                },
                 "responses": {
                     "405": {
                         "description": "Invalid input"
@@ -57,8 +58,7 @@
         "/api/customers/show/{customer}": {
             "get": {
                 "tags": [
-                    "customers",
-                    "show"
+                    "customers"
                 ],
                 "summary": "Get single customer",
                 "description": "Get single customer",
@@ -85,10 +85,9 @@
             }
         },
         "/api/customers/update/{customer}": {
-            "post": {
+            "patch": {
                 "tags": [
-                    "customers",
-                    "update"
+                    "customers"
                 ],
                 "summary": "update existing customer to database",
                 "operationId": "update",
@@ -98,15 +97,25 @@
                         "in": "path",
                         "description": "customer id",
                         "required": true
-                    },
-                    {
-                        "name": "Firstame",
-                        "in": "path",
-                        "description": "first name",
-                        "required": true
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CustomerStoreRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
+                    "200": {
+                        "description": "Customer updated successfully"
+                    },
+                    "404": {
+                        "description": "Item not found"
+                    },
                     "405": {
                         "description": "Invalid input"
                     }
@@ -116,8 +125,7 @@
         "/api/customers/delete/{customer}": {
             "delete": {
                 "tags": [
-                    "customer",
-                    "delete"
+                    "customers"
                 ],
                 "summary": "Deletes a customer",
                 "operationId": "destroy",
@@ -130,6 +138,9 @@
                     }
                 ],
                 "responses": {
+                    "200": {
+                        "description": "Customer deleted successfully"
+                    },
                     "400": {
                         "description": "Invalid ID supplied"
                     },
@@ -137,6 +148,59 @@
                         "description": "customer not found"
                     }
                 }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CustomerStoreRequest": {
+                "title": "Customer storring request",
+                "description": "Some simple request createa as example",
+                "properties": {
+                    "Firstname": {
+                        "title": "Firstname",
+                        "description": "Name of customer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "masood"
+                    },
+                    "Lastname": {
+                        "title": "Lastname",
+                        "description": "Lastname for customer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "jooibar"
+                    },
+                    "PhoneNumber": {
+                        "title": "PhoneNumber",
+                        "description": "PhoneNumber for customer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "09213679259"
+                    },
+                    "BankAccountNumber": {
+                        "title": "BankAccountNumber",
+                        "description": "BankAccountNumber for customer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "1362598811235"
+                    },
+                    "Email": {
+                        "title": "Email",
+                        "description": "Email for customer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "masood.jooibar@gmail.com"
+                    },
+                    "DateOfBirth": {
+                        "title": "DateOfBirth",
+                        "description": "Date of birth for customer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "2023-04-12 11:02:00"
+                    }
+                },
+                "type": "object"
             }
         }
     }

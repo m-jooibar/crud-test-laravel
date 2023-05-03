@@ -60,25 +60,18 @@ class CustomerController extends Controller
         }
     }
 
-//PhoneNumber
-//Email
-//BankAccountNumber
-//Firstname
-//Lastname
-//DateOfBirth
-
     /**
-     * @OA\Post(
+     * @OA\post(
      *     path="/api/customers/store",
-     *     tags={"customers","store"},
-     *     summary="Add new customer to database",
+     *     tags={"customers"},
+     *     summary="Add new customer in database",
      *     operationId="store",
-     *     @OA\Parameter(
-     *         name="PhoneNumber",
-     *         in="path",
-     *         description="phone number",
+     *
+     *     @OA\RequestBody(
      *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerStoreRequest")
      *     ),
+     *
      *     @OA\Response(
      *         response=405,
      *         description="Invalid input"
@@ -99,7 +92,7 @@ class CustomerController extends Controller
     /**
      * @OA\Get(
      *     path="/api/customers/show/{customer}",
-     *     tags={"customers","show"},
+     *     tags={"customers"},
      *     summary="Get single customer",
      *     description="Get single customer",
      *     operationId="show",
@@ -133,11 +126,13 @@ class CustomerController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\patch(
      *     path="/api/customers/update/{customer}",
-     *     tags={"customers","update"},
+     *     tags={"customers"},
      *     summary="update existing customer to database",
      *     operationId="update",
+     *
+     *
      *     @OA\Parameter(
      *         name="customer",
      *         in="path",
@@ -145,12 +140,21 @@ class CustomerController extends Controller
      *         required=true,
      *     ),
      *
-     *     @OA\Parameter(
-     *         name="Firstame",
-     *         in="path",
-     *         description="first name",
+     *     @OA\RequestBody(
      *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerStoreRequest")
      *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Customer updated successfully"
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=404,
+     *         description="Item not found"
+     *     ),
+     *
      *     @OA\Response(
      *         response=405,
      *         description="Invalid input"
@@ -171,7 +175,7 @@ class CustomerController extends Controller
     /**
      * @OA\Delete(
      *     path="/api/customers/delete/{customer}",
-     *     tags={"customer","delete"},
+     *     tags={"customers"},
      *     summary="Deletes a customer",
      *     operationId="destroy",
      *     @OA\Parameter(
@@ -180,6 +184,11 @@ class CustomerController extends Controller
      *         description="customer to delete",
      *         required=true
      *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Customer deleted successfully",
+     *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Invalid ID supplied",
