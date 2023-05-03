@@ -1,0 +1,17 @@
+version: "2.4"
+
+services:
+
+  mariadb:
+    image: mariadb:10
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:3306:3306
+    environment:
+      - MYSQL_DATABASE=database
+      - MYSQL_ROOT_PASSWORD=root_pass
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+    volumes:
+      - ./databases/mariadb:/var/lib/mysql
