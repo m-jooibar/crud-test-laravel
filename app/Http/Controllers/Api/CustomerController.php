@@ -69,7 +69,7 @@ class CustomerController extends Controller
      *
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/CustomerStoreRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerStoreRequest-")
      *     ),
      *
      *     @OA\Response(
@@ -142,7 +142,7 @@ class CustomerController extends Controller
      *
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/CustomerStoreRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerStoreRequest-")
      *     ),
      *
      *     @OA\Response(
@@ -165,7 +165,7 @@ class CustomerController extends Controller
     {
         try {
             $this->customerService->updateOneCustomer(collection: collect($request->all()), customer: $customer);
-            return response()->json($this->normalizeResponse(false, 'customer updated successfully'));
+            return response()->json($this->normalizeResponse(false, 'Customer updated successfully'));
         } catch (\Exception $exception) {
             return response()->json($this->normalizeResponse(true, $exception->getMessage()));
         }
@@ -203,7 +203,7 @@ class CustomerController extends Controller
     {
         try {
             $this->customerService->deleteOneCustomer($customer);
-            return response()->json($this->normalizeResponse(false, 'customer deleted successfully'));
+            return response()->json($this->normalizeResponse(false, 'Customer deleted successfully'));
         } catch (\Exception $exception) {
             return response()->json($this->normalizeResponse(true, $exception->getMessage()));
         }

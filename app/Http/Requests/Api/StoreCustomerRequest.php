@@ -32,7 +32,7 @@ class StoreCustomerRequest extends FormRequest
             "BankAccountNumber" => ['required', new ValidBankAccountNumber],
             "Firstname" => ["required", 'unique:customers'],
             "Lastname" => ["required", 'unique:customers'],
-            "DateOfBirth" => ["required"],
+            "DateOfBirth" => ["required",'date'],
         ];
     }
 
