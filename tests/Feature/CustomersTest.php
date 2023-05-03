@@ -156,5 +156,4 @@ class CustomersTest extends TestCase
         $this->assertEquals(0, $customer);
     }
 
-
 }
